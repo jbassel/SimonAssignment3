@@ -30,5 +30,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(getApplicationContext(), simonClassic.class);
             startActivity(intent);
         }
+        else if (view.getId() == R.id.button8) {
+            Intent intent = new Intent(getApplicationContext(), simonSuper.class);
+            startActivity(intent);
+        }
     }
 }

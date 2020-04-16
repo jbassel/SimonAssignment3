@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".simonClassic"></activity>
+        <activity android:name=".simonSuper"></activity>
     </application>
 
 </manifest>
