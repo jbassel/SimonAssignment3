@@ -17,20 +17,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Button button = (Button) findViewById(R.id.button);
+        Button button2 = (Button) findViewById(R.id.button8);
         button.setOnClickListener(this);
+        button2.setOnClickListener(this);
         TextView text = (TextView) findViewById(R.id.textView2);
     }
 
     @Override
     public void onClick(View view) {
         Button button = (Button) findViewById(R.id.button);
+        Button button2 = (Button) findViewById(R.id.button8);
         button.setOnClickListener(this);
+        button2.setOnClickListener(this);
 
         if (view.getId() == R.id.button) {
             Intent intent = new Intent(getApplicationContext(), simonClassic.class);
             startActivity(intent);
         }
-        else if (view.getId() == R.id.button8) {
+        if (view.getId() == R.id.button8) {
             Intent intent = new Intent(getApplicationContext(), simonSuper.class);
             startActivity(intent);
         }

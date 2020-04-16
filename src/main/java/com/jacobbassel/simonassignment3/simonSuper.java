@@ -99,9 +99,9 @@ public class simonSuper extends AppCompatActivity {
 
                         arrlist.add(picker);
 
-                        button2.setBackgroundColor(Color.RED);
+                        button2.setBackgroundColor(Color.YELLOW);
                         button4.setBackgroundColor(Color.YELLOW);
-                        button3.setBackgroundColor(Color.GREEN);
+                        button3.setBackgroundColor(Color.YELLOW);
                     } else if (picker == 1) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[3]);
                         button2.setBackgroundColor(getResources().getColor(R.color.black));
@@ -110,8 +110,8 @@ public class simonSuper extends AppCompatActivity {
 
                         arrlist.add(picker);
 
-                        button.setBackgroundColor(Color.BLUE);
-                        button3.setBackgroundColor(Color.GREEN);
+                        button.setBackgroundColor(Color.YELLOW);
+                        button3.setBackgroundColor(Color.YELLOW);
                         button4.setBackgroundColor(Color.YELLOW);
                     } else if (picker == 2) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[1]);
@@ -121,8 +121,8 @@ public class simonSuper extends AppCompatActivity {
 
                         arrlist.add(picker);
 
-                        button.setBackgroundColor(Color.BLUE);
-                        button2.setBackgroundColor(Color.RED);
+                        button.setBackgroundColor(Color.YELLOW);
+                        button2.setBackgroundColor(Color.YELLOW);
                         button4.setBackgroundColor(Color.YELLOW);
 
                     } else if (picker == 3) {
@@ -132,9 +132,9 @@ public class simonSuper extends AppCompatActivity {
                         i++;
                         arrlist.add(picker);
 
-                        button.setBackgroundColor(Color.BLUE);
-                        button2.setBackgroundColor(Color.RED);
-                        button3.setBackgroundColor(Color.GREEN);
+                        button.setBackgroundColor(Color.YELLOW);
+                        button2.setBackgroundColor(Color.YELLOW);
+                        button3.setBackgroundColor(Color.YELLOW);
 
                     }
 
