@@ -2,12 +2,14 @@ package com.jacobbassel.simonassignment3;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class simonClassic extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class simonClassic extends AppCompatActivity {
     int thing2 = 0;
     private MediaPlayer mediaplayer;
     int count2 = 0;
+    int count3 = 0;
+    int j = 0;
     View view;
     private static int buttons[] = {R.id.button2, R.id.button4, R.id.button5, R.id.button6};
     int count = 0;
@@ -40,12 +45,14 @@ public class simonClassic extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        j = 0;
 
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button4);
         Button button4 = (Button) findViewById(R.id.button5);
         Button button5 = (Button) findViewById(R.id.button6);
         Button button6 = (Button) findViewById(R.id.button7);
+        Button button7 = (Button) findViewById(R.id.button9);
         TextView text = (TextView) findViewById(R.id.textView);
         TextView text2 = (TextView) findViewById(R.id.textView4);
 
@@ -54,6 +61,7 @@ public class simonClassic extends AppCompatActivity {
         findViewById(R.id.button5).setOnClickListener(new MyTimer());
         findViewById(R.id.button6).setOnClickListener(new MyTimer());
         findViewById(R.id.button7).setOnClickListener(new MyTimer());
+        findViewById(R.id.button9).setOnClickListener(new MyTimer());
 
         button2.setBackgroundColor(Color.BLUE);
         button3.setBackgroundColor(Color.RED);
@@ -65,7 +73,8 @@ public class simonClassic extends AppCompatActivity {
         timer.schedule(myTimer, 2000, 2000);
 
         count = GameState.INSTANCE.getScore();
-        text2.setText(String.valueOf(GameState2.INSTANCE.getScore()));
+        count3 = GameState2.INSTANCE.getScore();
+        text2.setText(String.valueOf(count3));
     }
 
     private class MyTimer extends TimerTask implements View.OnClickListener{
@@ -80,6 +89,11 @@ public class simonClassic extends AppCompatActivity {
                     Button button4 = (Button) findViewById(R.id.button6);
                     TextView text = (TextView) findViewById(R.id.textView);
 
+                    button.setEnabled(false);
+                    button2.setEnabled(false);
+                    button3.setEnabled(false);
+                    button4.setEnabled(false);
+
                     Random rand = new Random();
                     int picker = rand.nextInt(4);
 
@@ -89,37 +103,43 @@ public class simonClassic extends AppCompatActivity {
                         button3.setBackgroundColor(Color.GREEN);
                         button4.setBackgroundColor(Color.YELLOW);
                         text.setText("Your Turn");
+
+                        button.setEnabled(true);
+                        button2.setEnabled(true);
+                        button3.setEnabled(true);
+                        button4.setEnabled(true);
+
                         timer.cancel();
-                        return;
+
                     } else if (picker == 0) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[0]);
-                        button.setBackgroundColor(getResources().getColor(R.color.black));
+                        button.setBackgroundColor(getResources().getColor(R.color.DarkBlue));
                         text.setText(buttonCols[0]);
                         i++;
 
-                        arrlist.add(picker);
+                        arrlist.add(0);
 
                         button2.setBackgroundColor(Color.RED);
                         button4.setBackgroundColor(Color.YELLOW);
                         button3.setBackgroundColor(Color.GREEN);
                     } else if (picker == 1) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[3]);
-                        button2.setBackgroundColor(getResources().getColor(R.color.black));
+                        button2.setBackgroundColor(getResources().getColor(R.color.DarkRed));
                         text.setText(buttonCols[1]);
                         i++;
 
-                        arrlist.add(picker);
+                        arrlist.add(1);
 
                         button.setBackgroundColor(Color.BLUE);
                         button3.setBackgroundColor(Color.GREEN);
                         button4.setBackgroundColor(Color.YELLOW);
                     } else if (picker == 2) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[1]);
-                        button3.setBackgroundColor(getResources().getColor(R.color.black));
+                        button3.setBackgroundColor(getResources().getColor(R.color.DarkGreen));
                         text.setText(buttonCols[2]);
                         i++;
 
-                        arrlist.add(picker);
+                        arrlist.add(2);
 
                         button.setBackgroundColor(Color.BLUE);
                         button2.setBackgroundColor(Color.RED);
@@ -127,10 +147,10 @@ public class simonClassic extends AppCompatActivity {
 
                     } else if (picker == 3) {
                         mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[2]);
-                        button4.setBackgroundColor(getResources().getColor(R.color.black));
+                        button4.setBackgroundColor(getResources().getColor(R.color.DarkYellow));
                         text.setText(buttonCols[3]);
                         i++;
-                        arrlist.add(picker);
+                        arrlist.add(3);
 
                         button.setBackgroundColor(Color.BLUE);
                         button2.setBackgroundColor(Color.RED);
@@ -163,61 +183,81 @@ public class simonClassic extends AppCompatActivity {
             Button button3 = (Button) findViewById(R.id.button5);
             Button button4 = (Button) findViewById(R.id.button6);
 
-            findViewById(R.id.button2).setOnClickListener(new MyTimer());
-            findViewById(R.id.button4).setOnClickListener(new MyTimer());
-            findViewById(R.id.button5).setOnClickListener(new MyTimer());
-            findViewById(R.id.button6).setOnClickListener(new MyTimer());
+
             TextView text = (TextView) findViewById(R.id.textView);
             TextView text2 = (TextView) findViewById(R.id.textView4);
+
+            if (view.getId() == R.id.button7) {
+                mediaplayer.stop();
+                count = 1;
+                GameState.INSTANCE.addScore(count);
+                count2 = 0;
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                finish();
+                startActivity(intent);
+            }
+            if (view.getId() == R.id.button9) {
+                mediaplayer.stop();
+                count = 1;
+                GameState.INSTANCE.addScore(count);
+                count2 = 0;
+                Intent intent = new Intent(getApplicationContext(), simonClassic.class);
+                finish();
+                startActivity(intent);
+            }
 
 
             if (view.getId() == R.id.button2) {
                 arrlist2.add(0);
                 mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[0]);
+                j++;
+                thing2++;
+                count2++;
             } if (view.getId() == R.id.button4) {
                 arrlist2.add(1);
                 mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[3]);
+                j++;
+                thing2++;
+                count2++;
             } if (view.getId() == R.id.button5) {
                 arrlist2.add(2);
                 mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[1]);
+                j++;
+                thing2++;
+                count2++;
             } if (view.getId() == R.id.button6) {
                 arrlist2.add(3);
                 mediaplayer = MediaPlayer.create(getApplicationContext(), sounds[2]);
-            }
-
-
-            if (arrlist.indexOf(0) == arrlist2.indexOf(0) && arrlist.indexOf(1) == arrlist2.indexOf(1) && arrlist.indexOf(2) == arrlist2.indexOf(2) && arrlist.indexOf(3) == arrlist2.indexOf(3)
-            && arrlist.indexOf(4) == arrlist2.indexOf(4) && arrlist.indexOf(5) == arrlist2.indexOf(5) && arrlist.indexOf(6) == arrlist2.indexOf(6) && arrlist.indexOf(7) == arrlist2.indexOf(7)
-            && arrlist.indexOf(8) == arrlist2.indexOf(8) && arrlist.indexOf(9) == arrlist2.indexOf(9) && arrlist.indexOf(10) == arrlist2.indexOf(10) && arrlist.indexOf(11) == arrlist2.indexOf(11)
-            && arrlist.indexOf(12) == arrlist2.indexOf(12) && arrlist.indexOf(13) == arrlist2.indexOf(13) && arrlist.indexOf(14) == arrlist2.indexOf(14) && arrlist.indexOf(15) == arrlist2.indexOf(15)
-                    && arrlist.indexOf(16) == arrlist2.indexOf(16) && arrlist.indexOf(17) == arrlist2.indexOf(17) && arrlist.indexOf(17) == arrlist2.indexOf(17) && arrlist.indexOf(17) == arrlist2.indexOf(17)
-            && arrlist.indexOf(18) == arrlist2.indexOf(18) && arrlist.indexOf(19) == arrlist2.indexOf(19) && arrlist.indexOf(20) == arrlist2.indexOf(20) && arrlist.indexOf(21) == arrlist2.indexOf(21))
-
-            {
+                j++;
                 thing2++;
                 count2++;
-                if (thing2 == GameState.INSTANCE.getScore()) {
-                    text.setText("Nice");
-                    count++;
-                    GameState.INSTANCE.addScore(count);
-
-                    if (count2 > GameState2.INSTANCE.getScore()) {
-                        GameState2.INSTANCE.addScore(count2);
-                    }
-                    Intent intent = getIntent();
-                    finish();
-                    startActivity(intent);
-                }
-
             }
 
-            else {
-                text.setText("You lose!");
-                GameState.INSTANCE.addScore(1);
 
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
+            if (j == count) {
+                for (int k = 0; k <= count; k++) {
+
+                    if (arrlist.indexOf(k) == arrlist2.indexOf(k)) {
+
+                        if (thing2 == GameState.INSTANCE.getScore()) {
+                            text.setText("Nice");
+                            count++;
+                            GameState.INSTANCE.addScore(count);
+
+                            if (count2 > GameState2.INSTANCE.getScore()) {
+                                GameState2.INSTANCE.addScore(count2);
+                            }
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+
+                    } else {
+                        text.setText("You lose!");
+                        GameState.INSTANCE.addScore(1);
+
+                    }
+                }
             }
 
             mediaplayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -225,6 +265,7 @@ public class simonClassic extends AppCompatActivity {
                 public void onPrepared(MediaPlayer mp) {
                     mediaplayer.start();
                 }
+
             });
 
 
@@ -264,6 +305,28 @@ public class simonClassic extends AppCompatActivity {
         public void addScore(int score){
             this.score = score;
         }
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        SharedPreferences sp = getSharedPreferences("MyPref1", 0);
+        SharedPreferences.Editor editor = sp.edit();
+
+        TextView tv = findViewById(R.id.textView4);
+
+        editor.putInt("count3", GameState2.INSTANCE.getScore());
+        editor.commit();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("MyPref1", 0);
+        int thing = sp.getInt("count3", count3);
+
+        count3 = count3;
 
     }
 
