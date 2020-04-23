@@ -86,12 +86,16 @@ public class simonSuper extends AppCompatActivity {
                     Button button2 = (Button) findViewById(R.id.button4);
                     Button button3 = (Button) findViewById(R.id.button5);
                     Button button4 = (Button) findViewById(R.id.button6);
+                    Button button7 = (Button) findViewById(R.id.button7);
+                    Button button9 = (Button) findViewById(R.id.button9);
                     TextView text = (TextView) findViewById(R.id.textView);
 
                     button.setEnabled(false);
                     button2.setEnabled(false);
                     button3.setEnabled(false);
                     button4.setEnabled(false);
+                    button7.setEnabled(false);
+                    button9.setEnabled(false);
 
                     Random rand = new Random();
                     int picker = rand.nextInt(4);
@@ -107,7 +111,10 @@ public class simonSuper extends AppCompatActivity {
                         button2.setEnabled(true);
                         button3.setEnabled(true);
                         button4.setEnabled(true);
+                        button7.setEnabled(true);
+                        button9.setEnabled(true);
 
+                        mediaplayer.release();
                         timer.cancel();
 
                     } else if (picker == 0) {
@@ -190,19 +197,19 @@ public class simonSuper extends AppCompatActivity {
             TextView text2 = (TextView) findViewById(R.id.textView4);
 
             if (view.getId() == R.id.button7) {
-                mediaplayer.stop();
                 count = 1;
                 GameState3.INSTANCE.addScore(count);
                 count2 = 0;
+                mediaplayer.release();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 finish();
                 startActivity(intent);
             }
             if (view.getId() == R.id.button9) {
-                mediaplayer.stop();
                 count = 1;
                 GameState3.INSTANCE.addScore(count);
                 count2 = 0;
+                mediaplayer.release();
                 Intent intent = new Intent(getApplicationContext(), simonSuper.class);
                 finish();
                 startActivity(intent);
